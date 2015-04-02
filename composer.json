@@ -1,0 +1,28 @@
+{
+    "name": "indigophp/robo-doctrine",
+    "description": "Doctrine (DBAL, ORM) tasks for Robo Task Runner",
+    "license": "MIT",
+    "keywords": ["robo", "doctrine", "dbal", "orm"],
+    "homepage": "https://indigophp.com",
+    "authors": [
+        {
+            "name": "Márk Sági-Kazár",
+            "email": "mark.sagikazar@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Robo\\Doctrine\\": "src/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1-dev"
+        }
+    },
+    "prefer-stable": true,
+    "minimum-stability": "dev"
+}
