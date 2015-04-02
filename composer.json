@@ -15,7 +15,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Robo\\Doctrine\\": "src/"
+            "Indigo\\Robo\\": "src/"
         }
     },
     "extra": {
