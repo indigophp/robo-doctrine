@@ -30,9 +30,10 @@ trait loadOrmTasks
      */
     public function ormClearCacheMetadata($opt = ['flush' => false])
     {
+        $defaultOpt = ['flush' => false];
         $command = new Command\ClearCache\MetadataCommand;
 
-        $this->runDoctrineCommand($command, $opt);
+        $this->runDoctrineCommand($command, $opt, $defaultOpt);
     }
 
     /**
@@ -44,9 +45,10 @@ trait loadOrmTasks
      */
     public function ormClearCacheResult($opt = ['flush' => false])
     {
+        $defaultOpt = ['flush' => false];
         $command = new Command\ClearCache\ResultCommand;
 
-        $this->runDoctrineCommand($command, $opt);
+        $this->runDoctrineCommand($command, $opt, $defaultOpt);
     }
 
     /**
@@ -58,9 +60,10 @@ trait loadOrmTasks
      */
     public function ormClearCacheQuery($opt = ['flush' => false])
     {
+        $defaultOpt = ['flush' => false];
         $command = new Command\ClearCache\QueryCommand;
 
-        $this->runDoctrineCommand($command, $opt);
+        $this->runDoctrineCommand($command, $opt, $defaultOpt);
     }
 
     /**
@@ -72,9 +75,10 @@ trait loadOrmTasks
      */
     public function ormSchemaCreate($opt = ['dump-sql' => false])
     {
+        $defaultOpt = ['dump-sql' => false];
         $command = new Command\SchemaTool\CreateCommand;
 
-        $this->runDoctrineCommand($command, $opt);
+        $this->runDoctrineCommand($command, $opt, $defaultOpt);
     }
 
     /**
@@ -83,14 +87,15 @@ trait loadOrmTasks
      * @param array $opt
      *
      * @option $dump-sql Dumps the generated SQL statements to the screen (does not execute them)
-     * @option $force Causes the generated SQL statements to be physically executed against your database
+     * @option $force    Causes the generated SQL statements to be physically executed against your database
      * @option $complete If defined, all assets of the database which are not relevant to the current metadata will be dropped
      */
     public function ormSchemaUpdate($opt = ['dump-sql' => false, 'force' => false, 'complete' => false])
     {
+        $defaultOpt = ['dump-sql' => false, 'force' => false, 'complete' => false];
         $command = new Command\SchemaTool\UpdateCommand;
 
-        $this->runDoctrineCommand($command, $opt);
+        $this->runDoctrineCommand($command, $opt, $defaultOpt);
     }
 
     /**
@@ -99,14 +104,15 @@ trait loadOrmTasks
      * @param array $opt
      *
      * @option $dump-sql Instead of try to apply generated SQLs into EntityManager Storage Connection, output them
-     * @option $force Don't ask for the deletion of the database, but force the operation to run
+     * @option $force    Don't ask for the deletion of the database, but force the operation to run
      * @option $complete Instead of using the Class Metadata to detect the database table schema, drop ALL assets that the database contains
      */
     public function ormSchemaDrop($opt = ['dump-sql' => false, 'force' => false, 'full-database' => false])
     {
+        $defaultOpt = ['dump-sql' => false, 'force' => false, 'full-database' => false];
         $command = new Command\SchemaTool\DropCommand;
 
-        $this->runDoctrineCommand($command, $opt);
+        $this->runDoctrineCommand($command, $opt, $defaultOpt);
     }
 
     /**
@@ -118,9 +124,10 @@ trait loadOrmTasks
      */
     public function ormEnsureProductionSettings($opt = ['complete' => false])
     {
+        $defaultOpt = ['complete' => false];
         $command = new Command\EnsureProductionSettingsCommand;
 
-        $this->runDoctrineCommand($command, $opt);
+        $this->runDoctrineCommand($command, $opt, $defaultOpt);
     }
 
     /**
@@ -143,6 +150,7 @@ trait loadOrmTasks
         $to,
         $opt = ['extend' => null, 'num-spaces' => 4]
     ) {
+        $defaultOpt = ['extend' => null, 'num-spaces' => 4];
         $command = new Command\ConvertDoctrine1SchemaCommand;
 
         $arg = [
@@ -153,7 +161,7 @@ trait loadOrmTasks
             'to'        => $to,
         ];
 
-        $this->runDoctrineCommand($command, $opt, $arg);
+        $this->runDoctrineCommand($command, $opt, $defaultOpt, $arg);
     }
 
     /**
@@ -166,13 +174,14 @@ trait loadOrmTasks
      */
     public function ormGenerateRepositories($destPath, $opt = ['filter' => null])
     {
+        $defaultOpt = ['filter' => null];
         $command = new Command\GenerateRepositoriesCommand;
 
         $arg = [
             'dest-path' => $destPath,
         ];
 
-        $this->runDoctrineCommand($command, $opt, $arg);
+        $this->runDoctrineCommand($command, $opt, $defaultOpt, $arg);
     }
 
     /**
@@ -200,14 +209,23 @@ trait loadOrmTasks
             'extend'               => false,
             'num-spaces'           => 4,
         ]
-    ) {
+    ){
+        $defaultOpt = [
+            'filter'               => null,
+            'generate-annotations' => false,
+            'generate-methods'     => true,
+            'regenerate-entities'  => false,
+            'update-entities'      => true,
+            'extend'               => false,
+            'num-spaces'           => 4,
+        ];
         $command = new Command\GenerateEntitiesCommand;
 
         $arg = [
             'dest-path' => $destPath,
         ];
 
-        $this->runDoctrineCommand($command, $opt, $arg);
+        $this->runDoctrineCommand($command, $opt, $defaultOpt, $arg);
     }
 
     /**
@@ -220,13 +238,14 @@ trait loadOrmTasks
      */
     public function ormGenerateProxies($destPath = null, $opt = ['filter' => null])
     {
+        $defaultOpt = ['filter' => null];
         $command = new Command\GenerateProxiesCommand;
 
         $arg = [
             'dest-path' => $destPath,
         ];
 
-        $this->runDoctrineCommand($command, $opt, $arg);
+        $this->runDoctrineCommand($command, $opt, $defaultOpt, $arg);
     }
 
     /**
@@ -255,6 +274,14 @@ trait loadOrmTasks
             'namespace'     => null,
         ]
     ) {
+        $defaultOpt = [
+            'filter'        => null,
+            'force'         => null,
+            'from-database' => null,
+            'extend'        => null,
+            'num-spaces'    => 4,
+            'namespace'     => null,
+        ];
         $command = new Command\ConvertMappingCommand;
 
         $arg = [
@@ -262,7 +289,7 @@ trait loadOrmTasks
             'dest-path' => $destPath,
         ];
 
-        $this->runDoctrineCommand($command, $opt, $arg);
+        $this->runDoctrineCommand($command, $opt, $defaultOpt, $arg);
     }
 
     /**
@@ -285,6 +312,12 @@ trait loadOrmTasks
             'depth'        => 7,
         ]
     ) {
+        $defaultOpt = [
+            'hydrate'      => 'object',
+            'first-result' => null,
+            'max-result'   => null,
+            'depth'        => 7,
+        ];
         $command = new Command\RunDqlCommand;
 
         $arg = [
@@ -319,14 +352,17 @@ trait loadOrmTasks
      *
      * @param SymfonyCommand $command
      * @param array          $opt
+     * @param array          $defaultOpt
+     * @param array          $arg
      */
-    protected function runDoctrineCommand(SymfonyCommand $command, array $opt = [], array $arg = [])
+    protected function runDoctrineCommand(SymfonyCommand $command, array $opt = [], array $defaultOpt = [], array $arg = [])
     {
         $helperSet = $this->getEntityManagerHelperSet();
         $command->setHelperSet($helperSet);
 
         $command = $this->taskSymfonyCommand($command);
 
+        $opt = array_merge($defaultOpt, array_intersect_key($opt, $defaultOpt));
         foreach ($opt as $key => $value) {
             $command->opt($key, $value);
         }
