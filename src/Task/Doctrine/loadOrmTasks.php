@@ -30,10 +30,10 @@ trait loadOrmTasks
      */
     public function ormClearCacheMetadata($opt = ['flush' => false])
     {
-        $defaultOpt = ['flush' => false];
+        $validOpts = ['flush'];
         $command = new Command\ClearCache\MetadataCommand;
 
-        $this->runDoctrineCommand($command, $opt, $defaultOpt);
+        $this->runDoctrineCommand($command, $opt, $validOpts);
     }
 
     /**
@@ -45,10 +45,10 @@ trait loadOrmTasks
      */
     public function ormClearCacheResult($opt = ['flush' => false])
     {
-        $defaultOpt = ['flush' => false];
+        $validOpts = ['flush'];
         $command = new Command\ClearCache\ResultCommand;
 
-        $this->runDoctrineCommand($command, $opt, $defaultOpt);
+        $this->runDoctrineCommand($command, $opt, $validOpts);
     }
 
     /**
@@ -60,10 +60,10 @@ trait loadOrmTasks
      */
     public function ormClearCacheQuery($opt = ['flush' => false])
     {
-        $defaultOpt = ['flush' => false];
+        $validOpts = ['flush'];
         $command = new Command\ClearCache\QueryCommand;
 
-        $this->runDoctrineCommand($command, $opt, $defaultOpt);
+        $this->runDoctrineCommand($command, $opt, $validOpts);
     }
 
     /**
@@ -75,10 +75,10 @@ trait loadOrmTasks
      */
     public function ormSchemaCreate($opt = ['dump-sql' => false])
     {
-        $defaultOpt = ['dump-sql' => false];
+        $validOpts = ['dump-sql'];
         $command = new Command\SchemaTool\CreateCommand;
 
-        $this->runDoctrineCommand($command, $opt, $defaultOpt);
+        $this->runDoctrineCommand($command, $opt, $validOpts);
     }
 
     /**
@@ -92,10 +92,10 @@ trait loadOrmTasks
      */
     public function ormSchemaUpdate($opt = ['dump-sql' => false, 'force' => false, 'complete' => false])
     {
-        $defaultOpt = ['dump-sql' => false, 'force' => false, 'complete' => false];
+        $validOpts = ['dump-sql', 'force', 'complete'];
         $command = new Command\SchemaTool\UpdateCommand;
 
-        $this->runDoctrineCommand($command, $opt, $defaultOpt);
+        $this->runDoctrineCommand($command, $opt, $validOpts);
     }
 
     /**
@@ -109,10 +109,10 @@ trait loadOrmTasks
      */
     public function ormSchemaDrop($opt = ['dump-sql' => false, 'force' => false, 'full-database' => false])
     {
-        $defaultOpt = ['dump-sql' => false, 'force' => false, 'full-database' => false];
+        $validOpts = ['dump-sql', 'force', 'full-database'];
         $command = new Command\SchemaTool\DropCommand;
 
-        $this->runDoctrineCommand($command, $opt, $defaultOpt);
+        $this->runDoctrineCommand($command, $opt, $validOpts);
     }
 
     /**
@@ -124,10 +124,10 @@ trait loadOrmTasks
      */
     public function ormEnsureProductionSettings($opt = ['complete' => false])
     {
-        $defaultOpt = ['complete' => false];
+        $validOpts = ['complete'];
         $command = new Command\EnsureProductionSettingsCommand;
 
-        $this->runDoctrineCommand($command, $opt, $defaultOpt);
+        $this->runDoctrineCommand($command, $opt, $validOpts);
     }
 
     /**
@@ -150,7 +150,7 @@ trait loadOrmTasks
         $to,
         $opt = ['extend' => null, 'num-spaces' => 4]
     ) {
-        $defaultOpt = ['extend' => null, 'num-spaces' => 4];
+        $validOpts = ['extend', 'num-spaces'];
         $command = new Command\ConvertDoctrine1SchemaCommand;
 
         $arg = [
@@ -161,7 +161,7 @@ trait loadOrmTasks
             'to'        => $to,
         ];
 
-        $this->runDoctrineCommand($command, $opt, $defaultOpt, $arg);
+        $this->runDoctrineCommand($command, $opt, $validOpts, $arg);
     }
 
     /**
@@ -174,14 +174,14 @@ trait loadOrmTasks
      */
     public function ormGenerateRepositories($destPath, $opt = ['filter' => null])
     {
-        $defaultOpt = ['filter' => null];
+        $validOpts = ['filter'];
         $command = new Command\GenerateRepositoriesCommand;
 
         $arg = [
             'dest-path' => $destPath,
         ];
 
-        $this->runDoctrineCommand($command, $opt, $defaultOpt, $arg);
+        $this->runDoctrineCommand($command, $opt, $validOpts, $arg);
     }
 
     /**
@@ -210,14 +210,14 @@ trait loadOrmTasks
             'num-spaces'           => 4,
         ]
     ){
-        $defaultOpt = [
-            'filter'               => null,
-            'generate-annotations' => false,
-            'generate-methods'     => true,
-            'regenerate-entities'  => false,
-            'update-entities'      => true,
-            'extend'               => false,
-            'num-spaces'           => 4,
+        $validOpts = [
+            'filter',
+            'generate-annotations',
+            'generate-methods',
+            'regenerate-entities',
+            'update-entities',
+            'extend',
+            'num-spaces',
         ];
         $command = new Command\GenerateEntitiesCommand;
 
@@ -225,7 +225,7 @@ trait loadOrmTasks
             'dest-path' => $destPath,
         ];
 
-        $this->runDoctrineCommand($command, $opt, $defaultOpt, $arg);
+        $this->runDoctrineCommand($command, $opt, $validOpts, $arg);
     }
 
     /**
@@ -238,14 +238,14 @@ trait loadOrmTasks
      */
     public function ormGenerateProxies($destPath = null, $opt = ['filter' => null])
     {
-        $defaultOpt = ['filter' => null];
+        $validOpts = ['filter'];
         $command = new Command\GenerateProxiesCommand;
 
         $arg = [
             'dest-path' => $destPath,
         ];
 
-        $this->runDoctrineCommand($command, $opt, $defaultOpt, $arg);
+        $this->runDoctrineCommand($command, $opt, $validOpts, $arg);
     }
 
     /**
@@ -274,13 +274,13 @@ trait loadOrmTasks
             'namespace'     => null,
         ]
     ) {
-        $defaultOpt = [
-            'filter'        => null,
-            'force'         => null,
-            'from-database' => null,
-            'extend'        => null,
-            'num-spaces'    => 4,
-            'namespace'     => null,
+        $validOpts = [
+            'filter',
+            'force',
+            'from-database',
+            'extend',
+            'num-spaces',
+            'namespace',
         ];
         $command = new Command\ConvertMappingCommand;
 
@@ -289,7 +289,7 @@ trait loadOrmTasks
             'dest-path' => $destPath,
         ];
 
-        $this->runDoctrineCommand($command, $opt, $defaultOpt, $arg);
+        $this->runDoctrineCommand($command, $opt, $validOpts, $arg);
     }
 
     /**
@@ -312,11 +312,11 @@ trait loadOrmTasks
             'depth'        => 7,
         ]
     ) {
-        $defaultOpt = [
-            'hydrate'      => 'object',
-            'first-result' => null,
-            'max-result'   => null,
-            'depth'        => 7,
+        $validOpts = [
+            'hydrate',
+            'first-result',
+            'max-result',
+            'depth',
         ];
         $command = new Command\RunDqlCommand;
 
@@ -352,18 +352,21 @@ trait loadOrmTasks
      *
      * @param SymfonyCommand $command
      * @param array          $opt
-     * @param array          $defaultOpt
+     * @param array          $validOpts
      * @param array          $arg
      */
-    protected function runDoctrineCommand(SymfonyCommand $command, array $opt = [], array $defaultOpt = [], array $arg = [])
+    protected function runDoctrineCommand(SymfonyCommand $command, array $opt = [], array $validOpts = [], array $arg = [])
     {
         $helperSet = $this->getEntityManagerHelperSet();
         $command->setHelperSet($helperSet);
 
         $command = $this->taskSymfonyCommand($command);
 
-        $opt = array_merge($defaultOpt, array_intersect_key($opt, $defaultOpt));
         foreach ($opt as $key => $value) {
+            if (!in_array($key, $validOpts)) {
+                continue;
+            }
+
             $command->opt($key, $value);
         }
 
